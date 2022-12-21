@@ -1,0 +1,20 @@
+{
+  "name": "to-opus",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "to-opus": "src/cli.mjs"
+  },
+  "main": "src/cli.mjs",
+  "scripts": {
+    "start": "node src/cli.mjs"
+  },
+  "keywords": [],
+  "author": "judgeou@vip.qq.com",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^11.1.0",
+    "glob": "^8.0.3",
+    "promise-limit": "^2.7.0"
+  }
+}
