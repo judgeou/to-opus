@@ -17,13 +17,17 @@ async function main () {
         let i = 0
 
         await Promise.all(files.map(file => plimit(async () => {
-            const input = file
-            const output = path.resolve(OUTPUT_DIR, path.basename(input, path.extname(input)) + '.opus')
-            const options = ['-b:a', '256k']
-
-            i++
-            console.log(`[${i} / ${files.length}] ${file}`);
-            await convertMusic(input, output, options)
+            if (path.extname(file) === '.flac') {
+                const input = file
+                const output = path.resolve(OUTPUT_DIR, path.basename(input, path.extname(input)) + '.opus')
+                const options = ['-b:a', '256k']
+    
+                i++
+                console.log(`[${i} / ${files.length}] ${file}`);
+                await convertMusic(input, output, options)
+            } else {
+                await fs.copyFile(file, path.resolve(OUTPUT_DIR, path.basename(file)))
+            }
         })))
 
     } else {
@@ -64,7 +68,7 @@ async function list_files (dir) {
         if (stat.isDirectory()) {
             result = [...result, ...await list_files(filepath)]
         } else {
-            if (path.extname(filepath) === '.flac') {
+            if (['.flac', '.jpg', '.jpeg', '.png', '.bmp'].indexOf(path.extname(filepath)) >= 0) {
                 result.push(filepath)
             }
         }
