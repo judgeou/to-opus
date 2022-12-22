@@ -62,7 +62,7 @@ async function list_files (dir) {
         let stat = await fs.stat(filepath)
 
         if (stat.isDirectory()) {
-            result = [...await list_files(filepath)]
+            result = [...result, ...await list_files(filepath)]
         } else {
             if (path.extname(filepath) === '.flac') {
                 result.push(filepath)
